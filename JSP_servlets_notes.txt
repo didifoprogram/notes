@@ -1,0 +1,577 @@
+IMPORTANT PAGES: 26, 33, 48, 105, 117, 124, 125, 137, 143, 145, 153, 155, 157, 161, 164, 169, 170, 171, 179, 181, 185, 191, 195, 198, 203, 207, 209, 210, 213, 215, 217, 219, 221, 240,
+245, 247, 251, 257, 259, 265, 266, 277, 281, 287, 304, 313, 319, 321, 323, 325, 327
+
+GET = Read from server
+POST = Change something on the server
+=====================================
+
+HTML TABLE =>
+tr = table row
+td = table data
+th = table head
+
+
+====================================
+MVC:
+M = Business Layers
+V = HTML/JSP
+C = Servlets
+====================================
+
+====================================
+JavaBean = Define business Objects, defines buttons etc...
+====================================
+
+===================================
+ServletContext = All servlets
+ServletConfig = Specific servlet
+==================================
+
+=================================
+service() => handle clients requests
+you do not override this method
+================================
+
+===============================
+getAttribute() => return Object
+must cast to the type of the returned Object
+==============================
+
+=============================
+HOW METHODS OF A SERVLET WOKS
+
+- The servlet engine only creates one instance of a servlet.
+- When the servlet engine creates the instance, it calls the init() method.
+- You can override the init() to supply initialization code.
+- Each request for the servlet spawns a thread.
+- If a servlet has been idle for a time or the engine is shut down,
+  the servlet engine unloads the instances and call the destroy() method.
+=============================
+
+=============================
+Dont use instances variables in servlet
+instances variables are not thread-safe and when two threads update the same variable at the same time
+information can get lost.
+=============================
+
+=============================
+COMMON SERVLET PROBLEMS
+
+- The servlet wont compile =>
+  Make sure the compiler has access to the JAR files for all necessary APIs.
+
+- The servlet wont run =>
+  Make sure the web server is running.
+  Make sure youre using the correct URL.
+
+- Changes to the servlet arent showing up =>
+  Make sure servlet reloading is on.
+  Redeploy the app.
+  Restart the server.
+
+- The page doesnt display correctly
+  Use the browser to view the HTML and identify the problem.
+
+==============================
+
+
+=============================
+USE System.out.println();System.err to track methods, classes and help debugging.
+USE log(); method int HttpServlet to debbug
+
+============================
+
+===========================
+Servlet Annotations
+@WebServlet()
+==========================
+
+
+=========================
+USE PARAMETER name="" for the variables that you specify in the java class
+========================
+
+
+=======================
+USE JSTL IN THE JSP, DOWNLOAD FROM MAVEN REPO
+
+TO IMPORT USE: (and have the jar in the lib project folder)
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+=======================
+
+
+======================
+LOAD SERVLETS WITHOUT THE BROWSER MAKING A GET OR POST REQUEST:
+USE <load-on-startup> in the web.xml INSIDE the <servlet></servlet>
+=====================
+
+
+=======================
+JavaBean SCOPE
+
+Request scope = When you store an attribute in the HttpServletRequest, that attribute is available only for the current request.
+Application scope = When you store an attribute in the ServletContext, that attribute is available for all servlets.
+Session scope = When you store an attribute in the HttpSession, that attribute is available for all servlets for the user current session.
+WHEN you use EL(JSP Expression Language) you dont have to specify the scope.
+=====================
+
+
+=====================
+scriplets = bad
+JSP Standard Tags = meh
+EL = good
+Custom tags = good
+JSTL = good
+=====================
+
+
+======================
+Include files in JSP page =>
+
+If you are always changing the file, is better to use at runtime.
+otherwise the best is to include at compile-time;
+
+- At compile-time:
+<%@ include file="/header.html" %>
+
+- At runtime:
+<jsp:include page="/footer.html" />
+
+- At runtime with JSTL import tag:
+<c:import url="file.html" />
+=====================
+
+
+====================
+SESSION TRACKING
+
+HTTP is a statless protocol, once a browser makes a request, it drops the connection,
+to maintain state, it must use session tracking
+
+COOKIES:
+Servlet API uses cookie to store session ID in each browser,
+
+to store data each session the server uses a session object,
+
+There are two types of cookie: persistent cookies, and per-session cookies.
+
+EXAMPLE: a shop online need session tracking because every time the user add a product to the cart,
+	 the client makes a request and drop the connection, so the previous item is gone..
+
+JSESSIONID = Cookie cookie = new Cookie("cookieName", request.getSession().toString());
+
+Cookie c = new Cookie("userIdCookie", userId );
+c.setMaxAge(60*60*24*365); 1 year
+c.setPath("/"); allow acess to all app
+response.addCookie(c); add cookie to the response
+
+When you get a request from the client you can ask for the cookie =>
+
+Cookie[] cookies = request.getCookies();
+String cookieName = "userIdCookie";
+String cookieValue = "";
+
+for (Cookie c: cookies) {
+    if (cookieName.equals(c.getName()) {
+	cookieValue = c.getValue();
+	}
+}
+
+--------------------------------------------------------
+To display a value for the cookie named emailCookie =>
+<p>emailCookie value is: ${cookie.emailCookie.value}</p>
+--------------------------------------------------------
+
+To delete persistent cookies =>>
+Cookie[] cookies = request.getCookies();
+for (Cookie c: cookies) {
+    c.setMaxAge(0); // delete the cookie
+}
+
+
+===========================================
+URL to pass paramaters and HIDDEN FIELD to pass paramaters:
+
+URL rewritting using GET like this =>   <a href="cart?productCode=${product.code}&amp;quantity=0"/>
+ 
+passing paramater using HIDDEN FIELD in a FORM => <input type="hidden" name="productCode" value=${product.code} />
+============================================
+
+
+=============================================
+EL ===>
+
+To use EL in the JSP you have to use the setAttribute() method.
+
+EX:
+Date currentDate = new Date();
+request.setAttribute("currentDate", currentDate);
+
+<p>Current date is: ${currentDate}</p>
+
+--------------------------------------------
+
+To access a property:
+User user = new User(firstName, lastName, email);
+request.setAttribute("user", user);
+
+<p>User first name ${user.firstName}</p>
+
+------------------------------------------
+
+The sequence scope that Java searches:
+
+page => PageContext
+request => HttpServlet
+session => HttpSession
+application => ServletContext
+
+-----------------------------------------
+IMPLICITS EL OBJETCS
+You can specify the scope for Java to search:
+
+Date date = new Date();
+<p>Date: ${pageScope.date}</p>
+
+<p>Date: ${requestScope.date}</p>
+
+<p>Date: ${sessionScope.date}</p>
+
+<p>Date: ${applicationScope.date}</p>
+
+----------------------------------------
+=To use EL with List<User>:=
+ 
+ArrayList<User> users = UserIo.getUsers(path);
+HttpSession session = this.getSessionContext();
+session.setAttribute("users", users);
+
+<p>First user in the list ${users[0].email}</p>
+
+
+=with array[]:=
+
+String[] colors = {"Red", "Blue"};
+ServletContext application = this.getServletContext();
+application.setAttribute("colors", colors);
+
+<p>First color: ${colors[0]}</p>
+
+
+=with JavaBean property:=
+
+User user = new User("John", "Smith", "john@email.com");
+session.setAttribute("user", user);
+
+<p>Hello ${user["firstName"]}</p>
+
+------------------------------------------
+
+HOW TO USE [] OPERATOR TO ACCESS ATTRIBUTES:
+
+=Syntax=
+${attribute[attribute].property}
+
+=Servlet Code=
+HashMap<String, User> userMap = UserIO.getUserMap(path);
+session.setAttribute("userMap", userMap);
+
+=JSP code=
+<p>First name: ${userMap[email].firstName}</p>
+
+=JSP code that return an empty string=
+<p>First name: ${userMap["email"].firstName}</p>
+                         ^     ^
+-------------------------------------------
+
+Another example
+
+=Syntax=
+${attribute[attriute[index]].property}
+
+=Servlet code=
+HashMap<String, User> userMap = UserIO.getUserMap(path);
+session.setAttributes("userMap", usermap);
+
+String[] emails = {"jsmith@gmail.com", "joel@gmail.com"};
+session.setAttribute("emails", emails);
+
+=JSP code=
+<p>First name:${userMap[emails[0]].firstName}</p>
+
+---------------------------------------------
+IF A JAVABEAN HAS A PROPERTY THAT RETURNS ANOTHER JAVABEAN, YOU CAN USE THE DOT OPERATOR
+
+=An example that accesses a nested property=
+
+=Syntax=
+${attribute.property1.property2}
+
+=Servlet code=
+Product p = new Product();
+p.setCode("pf01");
+LineItem lineItem = new LineItem(p, 10);
+session.setAttribute("item", lineItem);
+
+=JSP code=
+<p>Product code: ${item.product.code}</p>
+---------------------------------------------
+
+OTHER IMPLICIT EL OBJECTS YOU CAN USE =>
+
+param
+paramValues
+header
+headerValues
+cookie
+initParam
+pageContext
+
+=An HTML form with two parameters with the same name=
+<form action="emailList" method="POST">
+    <p>First name: <input type="text" name="firstName"></p>
+    <p>Email 1: <input type="text" name="email"></p>
+    <p>Email 2: <input type="text" name="email"></p>
+    
+</form>
+
+=JSP code=
+<p>First name: ${param.firstName}<br>
+Email 1: ${paramValues.email[0]};<br>
+Email 2: ${paramValues.email[1]};
+</p>
+
+=How to get an HTTP header=
+
+=JSP code=
+<p>MIME types: ${header.accept}<br>
+   Compression types: ${header["accept-encoding"]} -- USE QUOTES IF IS MORE THAN ONE WORD
+</p>
+
+
+=How to work with cookies=
+
+=Servlet code=
+Cookie c = new Cookie("emailCookie", email);
+c.setMaxAge(60*60); // 1hour
+c.setPath("/");
+response.addCookie(c);
+
+=JSP code=
+<p>The email cookie: ${cookie.emailCookie.value}</p>
+
+
+=How to get context initialization parameter=
+
+=XML web.xml=
+<context-param>
+    <param-name>custServEmail</param-name>
+    <param-value>custserv@murach.com</param-value>
+</context-param>
+
+=JSP code=
+<p>The context init param is: ${initParam.custServEmail}</p>
+
+
+=How to use the pageContext object=
+
+=JSP code=
+<p>HTTP request method: ${pageContext.request.method}<br>
+   HTTP response type: ${pageContext.response.contentType}<br>
+   HTTP session ID: ${pageContext.session.id}<br>
+   HTTP contextPath: ${pagecontext.servletContext.contextPath}<br>
+</p>
+
+-----------------------------------------
+
+=Arithmetic EL operators=
+
+NULL = 0
+
+EXAMPLES =>
+${1 + 1}
+${2 - 1}
+${7 * 3}
+${1 / 4}
+${8 % 2}
+
+-----------------------------------------
+=Relational operators=
+
+operator      Alternative
+==                eq
+!=                ne
+<                 lt
+>                 gt
+<=                le
+>=                ge
+
+EX =>
+${"s1" == "s1"}
+${user.firstName == null}
+${user.firstName == ""}
+${isDirty == true}
+${isDirty eq true}
+
+------------------------------------------
+
+=Logical operators=
+
+NULL = FALSE
+
+Operator       Alternative
+&& 		   and
+
+||		   or
+
+!		   not
+
+--------------------------------------------
+=Other operators=
+empty x (returns true if the value of x is null or empty strin)g
+x ? y : z (if x is true return y else return z)
+--------------------------------------------
+
+========================================
+
+HOW to disable EL
+
+=For a single page=
+<%@ page isELIgnored = "true" %>
+
+
+=For the entire app= (web.xml)
+<jsp-config>
+    <jsp-property-group>
+	<url-pattern>*.jsp</url-pattern>
+	<el-ignored>true</el-ignored>
+    </jsp-property-group>
+</jsp-config>
+
+------------------------------------
+
+HOW to disable scripting
+
+=for the entire app= (web.xml)
+
+<jsp-config>
+    <jsp-property-group>
+	<url-pattern>*.jsp</url-pattern>
+ 	<scripting-invalid>true</scripting-invalid>  
+    </jsp-property-group>
+</jsp-config>
+
+
+========================================
+
+=JSTL TAGS =
+
+DOCUMENTATION : http://docs.oracle.com/javaee/5/jstl/1.1/docs/tlddocs/
+
+
+c   |  core
+fmt |  formating
+sql |  SQL
+x   |  XML
+fn  |  functions
+
+Escape output to avoid XSS attacks =>
+<span><c:out value=${user.email} /></span>
+
+
+An example that uses JSTL to loop =>
+<c:forEach var="items" items=" ${cart.items}">
+<tr>
+    <td>${item.quantity}</td>
+    <td>${item.product.description}</td>
+    <td>${items.totalCurrencyFormat}</td>
+</tr>
+<c:forEach>
+
+
+An example that uses forTokens to loop and split a string =>
+Servlet code:
+session.setAttribute("productCodes", "900,3232,233,112,5454");
+
+JSP code:
+<p>Produtc</p>
+<ul>
+<c:forTokens var="productCode" items="${productCodes}" delimns="," >
+    <li>${productCode}</li>
+<c:forTokens>
+</ul>
+
+
+Another example =>
+Servlet code:
+session.setAttribute("emailAddress", "john@gmail.com");
+
+JSP code:
+<p>Email parts</p>
+<ul>
+<c:forTokens var="email" items="${emailAddress}" delimns="@." >
+    <li>${email}</li>
+<c:forTokens>
+</ul>
+
+
+An example for the if tag ->
+<c:if test="${cart.items > 1}">
+  <p>You have ${cart.items} in your cart</p>
+</c:if>
+
+An example of if/else in JSTL =>
+<c:choose>
+  <c:when test="${cart.count == 0}">
+  <p> the cart is empty</p>
+  <c:otherwise>
+    <p> cat is not empty</p>
+  </c:otherwise>
+</c:choose>
+
+
+====================================
+*************REVISAR CHAPTER 10 **********
+CUSTOM TAGS ->
+
+CREATE TLD FILE =>
+
+EXAMPLE:
+<tlib-version>1.0</tlib-version>
+  <short-name>murach</short-name>
+  <uri>/WEB-INF/murach.tld</uri>
+  <tag>
+    <name>cart</name>
+    <tag-class>murach.tags.CartTag</tag-class>
+    <body-content>JSP</body-content>
+  </tag>
+
+--------------
+CREATE CLASS => CartTag that extends BodyTagSupport or TagSupport
+
+@Override
+    public int doStartTag()
+
+@Override
+    public void doInitBody()
+
+ @Override
+    public int doAfterBody()
+
+
+====================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
