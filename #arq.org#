@@ -1,0 +1,59 @@
+
+* Continuacao do livro...
+  :PROPERTIES:
+  :NOTER_DOCUMENT: /home/diego/Downloads/arquitetura.pdf
+  :END:
+** Representacoes Binarias de Inteiros Positivos - pag 44
+:PROPERTIES:
+:NOTER_PAGE: 44
+:END:
+Inteiros positivos sao representados utilizando o sistema binario de numeracao
+posicional (base 2).
+Por exemplo: 100111 = 1.2^5 + 1.2^2 + 1.2^1 + 1.2^0 = 32 + 4 + 2 + 1 = 39
+Valores binarios tem o prefixo 0b para identificacao.
+** Outras Bases de Numeracao
+:PROPERTIES:
+:NOTER_PAGE: 45
+:END:
+Hexadecimal, Octal..
+Na notacao hexadecimal, temos os numeros 0-9 e letras de A-F
+Hexadecimal usa 0x como prefixo para identificacao.
+** Conversao de decimal para binario
+:PROPERTIES:
+:NOTER_PAGE: 47
+:END:
+Para converter de um numero decimal para binario, podemos fazer a estrategia da divisao.
+Ex: 58 = 111010
+** Conversao Hexadecimal para Binario
+:PROPERTIES:
+:NOTER_PAGE: 48
+:END:
+Cada digito Hexadecimal tem um conjunto de 4 bits portando para converter 2BC vamos utilizar 12 bits 
+ficando 2BC = 0010 1011 1100, converte cada digito para binario depois junta todos, ficando 001010111100.
+** Conversao de Binario para HExadecimal
+:PROPERTIES:
+:NOTER_PAGE: 49
+:END:
+Agrupar o numero binario de 4 em 4 bits, na falta de digitos a esquerda, completar com zeros.
+Ex: 11100011100 = 111 0001 1100, colocamos um zero na esqureda,  0111 0001 1100 = 71C
+** Variaveis Booleanas
+:PROPERTIES:
+:NOTER_PAGE: 51
+:END:
+OR, AND, NOT
+A principal diferenca entra a algebra booleana e a convencional eh que, na booleana as constantes
+e variaveis podem ter apenas dois valores possiveis, 0 ou 1.
+** PORTA OR
+:PROPERTIES:
+:NOTER_PAGE: 53
+:END:
+x = A + B
+A porta OR opera de modo que sua saida sera ALTA(nivel logico 1) se a entrada A ou B ou ambas foram
+nivel logico 1. A saida de uma porta OR sera nivel BAIXO(nivel logico 0) apenas se todas as entradas
+forem nivel 0.
+** PORTA AND
+:PROPERTIES:
+:NOTER_PAGE: 54
+:END:
+x = A.B
+A saida sera ALTA apenas se a entrada A e B foram nivel logico 1.

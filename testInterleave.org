@@ -1,0 +1,160 @@
+#+INTERLEAVE_PDF: /home/diego/Downloads/arquitetura.pdf
+* Notes for page 16
+  :PROPERTIES:
+  :interleave_page_note: 16
+  :END:
+Geracao zero - computadores mecanicos, Blaise Pascal, apenas adicao e subtracao. Maquina diferencial,
+projetada para calcular tabelas de numeros uteis para a navegacao naval. Mais tarde foi criada a maquina
+analitica que possui 4 componentes, memoria,moinho(unidade de calculo) entrada e saida.
+* Notes for page 17
+  :PROPERTIES:
+  :interleave_page_note: 17
+  :END:
+Primeira geracao valvulas, o estimulo para o pc eletronico foi a 2 guerra, mensaggens codificadas usando ENIGMA,
+nasceu o COLOSSUS, decodificador do ENIGMA. Foi construido o *ENIAC*, que tinha 18 mil valvulas e 1500 reles.
+Apos isso comecaram a trabalhar no EDVAC. O John Newmann propos uma arquitetura padrao de computador
+contento uma *memoria*, uma *unidade aritimetica e logica*, uma *unidade central* e uma *unidade de controle*
+* Notes for page 19
+  :PROPERTIES:
+  :interleave_page_note: 19
+  :END:
+*** A cpu eh encarregada de buscar as instrucoes e dados da memoria, executar as instrucoes e entrao armazanar
+*** os valores resultantes de volta na memoria
+
+* Segunda Geracao
+  ** Transistor que eh um resistor de transferencia, foidescoberto durante estudos em torno de um diodo de ponto
+  ** Os transistores eram menores que as valvulas e nao exigiam tempo de aquecimento, consumian menos energia
+  ** Mudou de linguagem da maquina para as linguagens /assembly/ 
+  ** Depois da /assembly/ vieram as linguagens de alto nivel como FORTRAN e COBOL
+  ** Os computadores nao haviam chegado ao publico geral
+
+* Notes for page 20
+  :PROPERTIES:
+  :interleave_page_note: 20
+  :END:
+* Terceira Geracao
+  ** Circuito integrado(CI) com chip de silicio
+  ** 1965 os (CI) comecaram a substituir os transistores nos pcs
+  ** (CI) pertmitiu colocar dezenas de transistores em um unico chip, computadores mais rapidos,menores,baratos
+  ** Diversos programa podiam ser executados no mesmo intervalo de tempo, compartilhando recursos do pc
+
+* Notes for page 21
+  :PROPERTIES:
+  :interleave_page_note: 21
+  :END:
+* Quarta Geracao - Microprocessadores e integracao em escala grande
+  ** Colocaram milhoes de transistores em um unico chip
+  ** Geracao dos computadores pessoais
+  ** GUI
+
+* Notes for page 22
+  :PROPERTIES:
+  :interleave_page_note: 22
+  :END:
+* Quinta Geracao - Computadores Invisiveis
+  ** Governo Japones gastou 500 milhoes para pc baseado em A.I e fracassou
+  ** Newton da Apple
+  ** Computadores embutidos
+
+* Notes for page 23
+  :PROPERTIES:
+  :interleave_page_note: 23
+  :END:
+* Historia do Computador
+  ** Lei de Moore - Transistores dobram a cada 18 meses
+  
+* Notes for page 25
+  :PROPERTIES:
+  :interleave_page_note: 25
+  :END:
+
+* Tipos de Computadores
+  ** Computador descartavel - Cartao de felicitacao
+  ** Microcontrolador - Relogio,carro,eletrodomestico
+  ** Computador de jogos - videogames
+  ** Computador pessoal - 
+  ** Servidor - de rede
+  ** Workstation - minissupercomputador
+  ** Mainframe - Processamento de dados em bloco em um banco
+
+* Notes for page 26
+  :PROPERTIES:
+  :interleave_page_note: 26
+  :END:
+
+* Descartaveis
+  ** RFID - 128bits, para codigo de barras etc...
+  ** Microcontroladores -  Computadores embutidos que gerenciam dispositivos e manipulam a interface, entre eles:
+  *** Eletrodomesticos, celular, fax, impressora, scanner, modem, dvd, TV, etc...
+  ** Microcontroladores contem processador, memoria e I/O
+  ** Sao diferentes dos PC's em custo, necessita resposta em tempo real, sistema embutido.
+
+* Notes for page 30
+  :PROPERTIES:
+  :interleave_page_note: 30
+  :END:
+* Conjunto de Estacoes de Trabalho
+  ** COW(Cluster of Workstation), utilizados para resolverem problemas complexos ou tambem como /Server farm/
+
+* Notes for page 31
+  :PROPERTIES:
+  :interleave_page_note: 31
+  :END:
+* Mainframes
+  ** Nao eh muito mais rapido que servidores mas tem mais capacidade de I/O
+  ** Sao utilizados como servidores de internet, pois podem manipular muitas transicoes por segundo
+
+* Notes for page 36
+  :PROPERTIES:
+  :interleave_page_note: 36
+  :END:
+* Material Complementar
+  ** Introducao a informatica
+  ** Fundamentos de sistemas operacionais
+  ** Computadores digitais/2
+  ** Fundamentos de arquiteturas de computadores
+* Notes for page 39
+  :PROPERTIES:
+  :interleave_page_note: 39
+  :END:
+** De eletrons a bits
+Computadores interpretam os sinais eletricos como possuindo um conjunto de valores discretos, ao inves
+de quantidades analogicas.
+
+Cada sinal carrega um de dois valores, dependendo do nivel de tensao do sinal, tensao baixa sao 0 e tensoes
+altas sao interpretadas como 1.
+
+** Representando as Informacoes
+O computador armazena e movimenta as informacoes internamente sob forma eletronica, podendo ser um valor de 
+voltagem ou corrente(memoria secundaria as informacoes sao armazenadas sob forma magnetica ou otica).
+
+Toda informacao introduzida em um computador eh convertida para a forma binaria.
+
+** BIT 
+A menor unidade de informacao armazenavel. (BInary DigiT). Pode ser somente 0 ou 1.
+Isoladamente nao representa muito, por isso eh agrupado em grupos ordenados de bits.
+
+** BYTE
+A maioria dos microcomputadores usam grupos de 8 bits.
+8 bits = 1 byte
+O menor grupo ordenado de bits representando uma info util eh o caractere.
+O caractere eh convertido em bits pelo sistema.
+Cada sistema define quantos bits e como se organizam cada conjunto para representar um caractere.
+**** BCD - Binary Code Decimal
+Grupo de 6 bits/caractere
+**** EBCDIC - Extend Binary Coded Decimal Interchange Code
+Exclusivo da IBM - grupo de 8 bits
+**** ASCII - American Standard Code for information Interchange
+8 bits, desenvolvido para apps com microcomputadores de 16 bits.
+
+
+** 
+Todas as indicacoes numericas referem-se a potencia de 2, por isso o K representa 1.024 unidades. 2^10.
+
+* Notes for page 42
+:PROPERTIES:
+:interleave_page_note: 42
+:END:
+** (IMAGEM) TABELA DE CONVERSAO BYTES PARA BITS
+
+** 
