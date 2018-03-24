@@ -1,3 +1,4 @@
+
 IMPORTANT PAGES: 26, 33, 48, 105, 117, 124, 125, 137, 143, 145, 153, 155, 157, 161, 164, 169, 170, 171, 179, 181, 185, 191, 195, 198, 203, 207, 209, 210, 213, 215, 217, 219, 221, 240,
 245, 247, 251, 257, 259, 265, 266, 277, 281, 287, 304, 313, 319, 321, 323, 325, 327
 
@@ -454,7 +455,7 @@ HOW to disable scripting
 
 =for the entire app= (web.xml)
 
-<jsp-config>
+p<jsp-config>
     <jsp-property-group>
 	<url-pattern>*.jsp</url-pattern>
  	<scripting-invalid>true</scripting-invalid>  

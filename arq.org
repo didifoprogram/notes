@@ -56,3 +56,163 @@ forem nivel 0.
 :END:
 x = A.B
 A saida sera ALTA apenas se a entrada A e B foram nivel logico 1.
+** Componentes de um computador - Entrada e Saida
+   :PROPERTIES:
+   :NOTER_PAGE: 63
+   :END:
+Os projetistas de computadores tem a tendencia de dirigir sua atencao primeiramente para o processador,
+depois para o sistema de memoria e, por ultimo, para o sistema de E/S. Isso porque o foco esta no tempo
+de execucao de programas que efetuam calculos intensivos, os quais nao utilizam muito o sistema de E/S.
+Outro motivo eh que o desempenho dos sitemas de E/S nao acompanham o desempenho dos processadores.
+Os sistemas de E/S podem ser divididos em dois componentes principais:
+- Os proprios dispositivos E/S
+- As tecnologias usadas para fazer a interface dos dispositivos de E/S.
+** Barramento
+   :PROPERTIES:
+   :NOTER_PAGE: 64
+   :END:
+O encaixe que cada peca precisa para funcionar corretamente
+Ha barramentos especificos para praticamente todos os componentes conectados no sistema.
+Os primeiros computadores faziam acesso a sua memoria principal por meio de barramento de E/S, ao inves de
+um barramento de memoria distinto. Essa configuracao reduzia o numero de siais indo para o processador ou computador,
+mas significa que a memoria teve que compartilhar a mesma largura da banda disponivel do barramento de E/S.
+** Acesso ao Barramento
+   :PROPERTIES:
+   :NOTER_PAGE: 65
+   :END:
+Cada tipo de barramento define um protocolo(PCI,SCSI etc.) sobre como o dispositivo pode acessar o barramento,
+quando os dados podem ser enviados. Esse envio eh controlado pela politica de arbitramento, que eh utilizada para
+decidir qual dispositivo pode acesar o barramento em um dado momento.
+
+- A política de arbitragem dos barramentos pode estabelecer um ID para 
+determinado dispositivo e assim a prioridade pode ser estabelecida mediante 
+um ID mais alto.
+
+- Outra política de arbitragem utilizada é a de decidir qual dispositivo pode 
+utilizar o barramento por meio do tempo de execução de uma operação. Alguns 
+protocolos de barramentos podem estabelecer limites sobre o tempo que uma 
+única operação pode demorar a ser completada, ajustado assim as solicitações 
+e prioridades.
+** Interrupcoes
+   :PROPERTIES:
+   :NOTER_PAGE: 66
+   :END:
+*** POLLING VS INTERRUPT http://www.electronics-base.com/useful-info/software-related/90-polling-vs-interrupt
+
+- É o mecanismo utilizado pela maioria dos processadores para tratar de um evento 
+que a grande maioria dos dispositivos de E/S geram: os assíncronos – eventos 
+que ocorrem em intervalos que o processador não pode prever ou controlar, mas 
+aos quais o processador precisa responder com razoável rapidez para fornecer 
+um desempenho aceitável. Por exemplo: o teclado – o processador não pode 
+prever quando o usuário pressionará uma tecla, mas precisa reagir ao pressio-
+nar da tecla em um tempo de resposta muito baixo (menos de 1 segundo) ou o 
+tempo de resposta será notado pelo usuário.
+
+- As interrupções então permitem que os dispositivos solicitem que o processador 
+pare o que está fazendo no momento e execute um software para processar 
+a solicitação do dispositivo.
+
+- As interrupções também são utilizadas quando o processador precisa exe-
+cutar uma operação de longa duração em algum dispositivo de E/S e quer ser 
+capaz de fazer outro trabalho, enquanto espera que a operação seja completada.
+
+*** COMO SÃO IMPLEMENTADAS AS INTERRUPÇÕES
+- Para implementar interrupções, o processador designa um sinal conhecido como 
+uma linha de solicitação de interrupção para cada dispositivo que pode emitir 
+uma interrupção.
+A cada dispositivo também é designado uma linha de reconhecimento de 
+interrupção que o processador utiliza para sinalizar ao dispositivo que ele recebe 
+e começou a processar a solicitação de interrupção.
+
+** Polling
+   :PROPERTIES:
+   :NOTER_PAGE: 67
+   :END:
+- O polling é uma alternativa para o uso de interrupções com dispositivos de E/S. 
+No polling, o processador verifica periodicamente cada um dos seus dispositivos
+de E/S para verificar se quaisquer deles têm uma solicitação que precisa ser tratada.
+
+- Utilizar o polling, em vez de interrupções, pode fornecer vantagens de desempenho 
+se o processador não tiver nenhum outro trabalho que ele possa estar fazendo, 
+enquanto as operações de E/S estão em andamento.
+
+- Desvantegens do polling :
+a. O polling consome recursos de processamento, mesmo quando não há solicitações de E/S esperando.
+
+b. Os sistemas que utilizam polling exigem que o software que está sendo executado no processador 
+(seja o sistema operacional, seja o programa do usuário) efetue a sondagem.
+
+*** Mapeamento em Memória das E/S
+- Para utilizar o sistema de E/S, o processador precisa ser capaz de enviar 
+comandos para os dispositivos de E/S e ler dados a partir deles. Para a maioria 
+dos sistemas, é utilizado o mecanismo da E/S mapeada em memória.
+Na E/S mapeada em memória, os registradores de comando (também cha-
+mados registradores de controle) de cada dispositivo de E/S aparecem para o 
+programador como se fossem posições de memória.
+
+** Interfaces
+   :PROPERTIES:
+   :NOTER_PAGE: 68
+   :END:
+*** Interface Paralela
+    - A Porta 
+    Paralela nada mais é do que um dispositivo de entrada e saída paralelo.
+    Transmitir de forma paralela é transmitir vários bits ao mesmo tempo. Em 
+    uma primeira impressão, a transmissão paralela pode parecer a mais apropriada.
+    Porém, não podemos esquecer do conceito de multiplexação (baseada no 
+    fato de comutar vários bits de forma rápida transmitidos por um único fio, ou 
+    seja, de forma serial).
+    
+    - Na comunicação em paralelo, grupos de bits são transferidos simultanea-
+    mente (em geral, byte a byte) por meio de diversas linhas condutoras dos sinais. 
+    Desta forma, como vários bits são transmitidos simultaneamente a cada ciclo, a 
+    taxa de transferência de dados (“throughput”) é alta.
+
+    - No entanto, o processo de transferência em paralelo envolve um controle sofis-
+    ticado e é razoavelmente complexo, o que o torna mais caro. 
+    Um dos problemas importantes diz respeito à propagação dos sinais no meio 
+    físico, isto é, no cabo de conexão entre o dispositivo e a interface. 
+
+    - Essa propagação deve se fazer de modo que os sinais (os bits) corresponden-
+    tes a cada byte cheguem simultaneamente à extremidade oposta do cabo, onde 
+    então serão reagrupados em bytes.
+
+*** Interface Serial
+    - Como o nome indica, é transmitir em série, ou seja, um bit após o outro.
+    - Os bytes a serem transmitidos são serializados, isto é, são “desmontados” bit a bit,
+    e são individualmente transmitidos, um a um. 
+    - Na outra extremidade do condutor, os bits são contados e, quando formam 8 bits,
+    são remontados, reconstituindo os bytes originais. 
+    - Transmissão serial é intrinsecamente mais lenta (de vez que apenas um bit é transmitido de cada vez).
+
+*** Interface USB
+    - O barramento USB pode ser utilizado para prover energia elétrica a deter
+    minados dispositivos. Para que isso seja possível, os cabos USB contam com 
+    quatro fios internos: VBus (VCC), D+, D- e GND.
+    
+    - O primeiro é o responsável pela alimentação elétrica. O segundo e o terceiro são utilizados na transmissão 
+    de dados (a letra “D” provém de data, dado em inglês). O quarto, por sua vez, é 
+    para controle elétrico, servindo como “fio-terra”.
+
+    **** VANTAGENS DO PADRÃO USB
+    - Um dos principais motivos que levou à criação da tecnologia USB é a necessi-
+    dade de facilitar a conexão de variados dispositivos ao computador. Sendo assim, 
+    o USB oferece uma série de vantagens:
+    
+    - Padroes de Conexao
+    - Plug and Play
+    - Alimentacao eletrica
+    - Conectar varios aparelhos ao mesmo tempo
+    - Ampla compatibilidade
+
+** Dispositivos de E/S
+   :PROPERTIES:
+   :NOTER_PAGE: 72
+   :END:
+   - Dispositivos que recebem dados
+     - Recebem entrada de dados direta do usuario, como teclado e mouse. Baixa largura de banda, resposta rapida.
+   - Dispositivos que apresentam saida de dados
+     - Placas de video, impressora, e placas de som.
+   - Dispositivos que interagem com outras maquinas.
+     - drivers de disco, cd-rom, interfaces de rede. Precisam de largura de banda altas em ambas direcoes.
+       
